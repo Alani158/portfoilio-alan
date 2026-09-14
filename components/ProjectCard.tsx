@@ -23,10 +23,8 @@ export default function ProjectCard({ project }: { project: Project }) {
               src={heroImage}
               alt={`${project.title} preview`}
               fill
-              priority
-              quality={65}
-              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-contain p-2 transition-transform duration-300 group-hover:scale-[1.02]"
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
           </div>
         ) : (

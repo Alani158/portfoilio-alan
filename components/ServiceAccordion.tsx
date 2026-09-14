@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import Reveal from "./Reveal";
 import { ArrowUpRight } from "./Icons";
 
@@ -86,41 +87,51 @@ export default function ServiceAccordion() {
                     </span>
                   </button>
 
-                  {open && (
-                    <div className="overflow-hidden">
-                      <div className="mb-8 grid gap-8 rounded-[1.5rem] border border-line bg-panel p-6 md:grid-cols-[1fr_220px] md:p-8">
-                        <div>
-                          <p className="leading-relaxed text-muted">{s.desc}</p>
-                          <ul className="mt-6 space-y-2.5">
-                            {s.points.map((pt) => (
-                              <li
-                                key={pt}
-                                className="flex items-center gap-3 text-sm text-ink/80"
-                              >
-                                <span className="h-1.5 w-1.5 rounded-full bg-brand" />
-                                {pt}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        <div className="rounded-[1.25rem] border border-line bg-gradient-to-br from-[#f8f4ee] to-[#efe7df] p-4">
-                          <div className="flex h-full min-h-[170px] flex-col justify-between rounded-[1rem] border border-line bg-paper p-4">
-                            <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-muted">
-                              Approach
-                            </span>
-                            <div className="space-y-3">
-                              <div className="h-2.5 w-full rounded-full bg-line" />
-                              <div className="h-2.5 w-4/5 rounded-full bg-brand/30" />
-                              <div className="h-2.5 w-3/5 rounded-full bg-accent/70" />
+                  <AnimatePresence initial={false}>
+                    {open && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.35, ease: "easeInOut" }}
+                        className="overflow-hidden"
+                      >
+                        <div className="mb-8 grid gap-8 rounded-[1.5rem] border border-line bg-panel p-6 md:grid-cols-[1fr_220px] md:p-8">
+                          <div>
+                            <p className="leading-relaxed text-muted">
+                              {s.desc}
+                            </p>
+                            <ul className="mt-6 space-y-2.5">
+                              {s.points.map((pt) => (
+                                <li
+                                  key={pt}
+                                  className="flex items-center gap-3 text-sm text-ink/80"
+                                >
+                                  <span className="h-1.5 w-1.5 rounded-full bg-brand" />
+                                  {pt}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div className="rounded-[1.25rem] border border-line bg-gradient-to-br from-[#f8f4ee] to-[#efe7df] p-4">
+                            <div className="flex h-full min-h-[170px] flex-col justify-between rounded-[1rem] border border-line bg-paper p-4">
+                              <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-muted">
+                                Approach
+                              </span>
+                              <div className="space-y-3">
+                                <div className="h-2.5 w-full rounded-full bg-line" />
+                                <div className="h-2.5 w-4/5 rounded-full bg-brand/30" />
+                                <div className="h-2.5 w-3/5 rounded-full bg-accent/70" />
+                              </div>
+                              <span className="text-xs text-muted">
+                                Clean systems. Thoughtful execution.
+                              </span>
                             </div>
-                            <span className="text-xs text-muted">
-                              Clean systems. Thoughtful execution.
-                            </span>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  )}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               </Reveal>
             );

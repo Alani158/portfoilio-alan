@@ -210,15 +210,9 @@ export default function ProjectDetailPage({
                       src={s.src}
                       alt={s.label}
                       fill
-                      priority={i === 0}
-                      quality={i === 0 ? 75 : 60}
-                      loading={i === 0 ? "eager" : "lazy"}
-                      decoding={i === 0 ? "sync" : "async"}
                       className="object-contain p-2"
                       sizes={
-                        i === 0
-                          ? "100vw"
-                          : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        i === 0 ? "100vw" : "(max-width: 768px) 100vw, 50vw"
                       }
                     />
                   </div>

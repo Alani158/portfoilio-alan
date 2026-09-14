@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { projects } from "@/lib/projects";
 import ProjectCard from "./ProjectCard";
 
@@ -8,11 +9,8 @@ const filters = ["All", "Full-Stack", "Frontend"] as const;
 
 export default function ProjectsGrid() {
   const [active, setActive] = useState<(typeof filters)[number]>("All");
-  const list = useMemo(
-    () =>
-      active === "All" ? projects : projects.filter((p) => p.type === active),
-    [active],
-  );
+  const list =
+    active === "All" ? projects : projects.filter((p) => p.type === active);
 
   return (
     <div>
@@ -26,7 +24,6 @@ export default function ProjectsGrid() {
                 ? "font-semibold text-ink"
                 : "text-muted hover:text-ink"
             }`}
-            type="button"
           >
             {f}
           </button>
@@ -36,16 +33,25 @@ export default function ProjectsGrid() {
         </span>
       </div>
 
-      <div className="mt-12 grid gap-x-10 gap-y-14 md:grid-cols-2">
-        {list.map((p) => (
-          <div
-            key={p.slug}
-            className="transition-all duration-300 ease-out hover:-translate-y-0.5"
-          >
-            <ProjectCard project={p} />
-          </div>
-        ))}
-      </div>
+      <motion.div
+        layout
+        className="mt-12 grid gap-x-10 gap-y-14 md:grid-cols-2"
+      >
+        <AnimatePresence mode="popLayout">
+          {list.map((p) => (
+            <motion.div
+              layout
+              key={p.slug}
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.96 }}
+              transition={{ duration: 0.3 }}
+            >
+              <ProjectCard project={p} />
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
     </div>
   );
 }

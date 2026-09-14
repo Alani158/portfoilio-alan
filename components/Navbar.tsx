@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { profile } from "@/lib/data";
 
 const links = [
@@ -77,29 +78,37 @@ export default function Navbar() {
         </button>
       </div>
 
-      {open && (
-        <nav className="overflow-hidden border-t border-line bg-paper md:hidden">
-          <div className="flex flex-col px-5 py-4">
-            {links.map((l) => (
+      <AnimatePresence>
+        {open && (
+          <motion.nav
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="overflow-hidden border-t border-line bg-paper md:hidden"
+          >
+            <div className="flex flex-col px-5 py-4">
+              {links.map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  className="border-b border-line py-3.5 text-base font-medium last:border-0"
+                >
+                  {l.label}
+                </Link>
+              ))}
               <Link
-                key={l.href}
-                href={l.href}
+                href="/contact"
                 onClick={() => setOpen(false)}
-                className="border-b border-line py-3.5 text-base font-medium last:border-0"
+                className="mt-3 rounded-full bg-ink px-5 py-3 text-center text-sm font-medium text-paper"
               >
-                {l.label}
+                Let&apos;s Talk
               </Link>
-            ))}
-            <Link
-              href="/contact"
-              onClick={() => setOpen(false)}
-              className="mt-3 rounded-full bg-ink px-5 py-3 text-center text-sm font-medium text-paper"
-            >
-              Let&apos;s Talk
-            </Link>
-          </div>
-        </nav>
-      )}
+            </div>
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

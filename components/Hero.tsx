@@ -1,16 +1,16 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { ArrowUpRight } from "./Icons";
 import PortraitPlaceholder from "./PortraitPlaceholder";
 import SocialLinks from "./SocialLinks";
 import { profile } from "@/lib/data";
 
-const heroPhrases = [
+const phrases = [
   "I build thoughtful digital experiences.",
-  "I turn ideas into polished product experiences.",
-  "I design and build systems people can trust.",
+  "I design and ship modern web products.",
+  "I turn ideas into clear, usable systems.",
 ];
 
 export default function Hero() {
@@ -19,8 +19,7 @@ export default function Hero() {
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    const currentPhrase = heroPhrases[phraseIndex];
-
+    const currentPhrase = phrases[phraseIndex];
     const timeout = setTimeout(
       () => {
         if (!isDeleting) {
@@ -36,7 +35,7 @@ export default function Hero() {
 
           if (nextText === "") {
             setIsDeleting(false);
-            setPhraseIndex((prev) => (prev + 1) % heroPhrases.length);
+            setPhraseIndex((prev) => (prev + 1) % phrases.length);
           }
         }
       },
@@ -61,26 +60,24 @@ export default function Hero() {
           Available for select projects
         </div>
 
-        <h1 className="mt-8 text-[15vw] font-black leading-[0.82] tracking-[-0.08em] text-ink opacity-0 animate-fade-up md:text-[8rem]">
+        <h1 className="mt-8 text-[15vw] font-black leading-[0.82] tracking-[-0.08em] text-ink md:text-[8rem]">
           <span className="block text-ink">ALANI</span>
           <span className="block text-brand">MUJEEB</span>
           <span className="block text-ink">BABATUNDE</span>
         </h1>
 
         <div className="mt-8 grid gap-8 md:grid-cols-[1.1fr_0.9fr] md:items-end">
-          <div
-            className="opacity-0 animate-fade-up"
-            style={{ animationDelay: "150ms" }}
-          >
+          <div>
             <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.28em] text-muted">
               <span>{profile.role}</span>
             </div>
 
             <div className="mt-4 flex min-h-[3.5rem] items-center">
               <p className="max-w-xl text-lg leading-relaxed text-muted md:text-xl">
-                <span className="inline-block border-r border-brand pr-1 text-brand">
+                <span className="inline-block min-w-[0.8ch] text-brand">
                   {text}
                 </span>
+                <span className="ml-1 inline-block h-6 w-[2px] translate-y-1 bg-brand align-middle md:h-7" />
               </p>
             </div>
 
@@ -100,10 +97,7 @@ export default function Hero() {
             </div>
           </div>
 
-          <div
-            className="opacity-0 animate-fade-up md:justify-self-end"
-            style={{ animationDelay: "250ms" }}
-          >
+          <div className="md:justify-self-end">
             <div className="rounded-2xl border border-line bg-panel p-4 shadow-[0_18px_45px_-30px_rgba(17,17,17,0.3)]">
               <p className="text-[10px] uppercase tracking-[0.28em] text-muted">
                 Focus
@@ -116,10 +110,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div
-          className="mx-auto mt-16 max-w-[28rem] opacity-0 animate-fade-up"
-          style={{ animationDelay: "350ms" }}
-        >
+        <div className="mx-auto mt-16 max-w-[28rem]">
           <PortraitPlaceholder />
         </div>
 
