@@ -1,14 +1,51 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { ArrowUpRight } from "./Icons";
 import PortraitPlaceholder from "./PortraitPlaceholder";
 import SocialLinks from "./SocialLinks";
 import { profile } from "@/lib/data";
 
-const heroPhrase = "I build thoughtful digital experiences.";
+const heroPhrases = [
+  "I build thoughtful digital experiences.",
+  "I turn ideas into polished product experiences.",
+  "I design and build systems people can trust.",
+];
 
 export default function Hero() {
+  const [text, setText] = useState("");
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentPhrase = heroPhrases[phraseIndex];
+
+    const timeout = setTimeout(
+      () => {
+        if (!isDeleting) {
+          const nextText = currentPhrase.slice(0, text.length + 1);
+          setText(nextText);
+
+          if (nextText === currentPhrase) {
+            setTimeout(() => setIsDeleting(true), 1200);
+          }
+        } else {
+          const nextText = currentPhrase.slice(0, text.length - 1);
+          setText(nextText);
+
+          if (nextText === "") {
+            setIsDeleting(false);
+            setPhraseIndex((prev) => (prev + 1) % heroPhrases.length);
+          }
+        }
+      },
+      isDeleting ? 45 : 90,
+    );
+
+    return () => clearTimeout(timeout);
+  }, [text, isDeleting, phraseIndex]);
+
   return (
     <section className="relative overflow-hidden pb-20 pt-16 md:pb-24 md:pt-20">
       <div
@@ -41,7 +78,9 @@ export default function Hero() {
 
             <div className="mt-4 flex min-h-[3.5rem] items-center">
               <p className="max-w-xl text-lg leading-relaxed text-muted md:text-xl">
-                <span className="inline-block text-brand">{heroPhrase}</span>
+                <span className="inline-block border-r border-brand pr-1 text-brand">
+                  {text}
+                </span>
               </p>
             </div>
 
