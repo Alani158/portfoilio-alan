@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #f7f5f2;
+  --foreground: #111111;
+  --muted: #5b5e66;
+  --line: #d8d0c5;
+  --panel: #f1eee8;
+  --brand: #2d6a5f;
+  --brand-soft: #eae3d8;
+  --accent: #c9a66b;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-sora), sans-serif;
+  letter-spacing: -0.04em;
+}
+
+::selection {
+  background: var(--brand);
+  color: #f7f5f2;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .text-outline {
+    -webkit-text-stroke: 1.5px #111111;
+    color: transparent;
+  }
+  .text-outline-light {
+    -webkit-text-stroke: 1.5px rgba(247, 245, 242, 0.9);
+    color: transparent;
+  }
+  .text-outline-faint {
+    -webkit-text-stroke: 1px rgba(17, 17, 17, 0.16);
+    color: transparent;
+  }
+
+  .animate-fade-up {
+    animation: fadeUp 0.7s ease-out forwards;
+  }
+}
